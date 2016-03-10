@@ -1,0 +1,1 @@
+require 'mage_soap'
