@@ -19,7 +19,7 @@ module MageSoap
     end
 
     def proxy
-      @proxy ||= @proxy_class.new api, api.magento_service.mage_api_model_server_v2_handler_port
+      @proxy ||= @proxy_class.new api, api.service.core_api_port
     end
   end
 end
