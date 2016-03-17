@@ -9,7 +9,7 @@ module MageSoap
       @root_module = root_module
       @api_class = @root_module.const_get :Api
       @service_class = @root_module.const_get :Service
-      @proxy_class = @service_class.const_get :PortProxy
+      @proxy_class = @service_class.const_get :CoreApiPortProxy
 
       stack.add 'response.processor', AsyncResponseProcessor.new
     end
