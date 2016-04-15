@@ -1,9 +1,10 @@
 require 'wsdl_mapper/runtime/async_http_backend'
 require 'mage_soap/async_response_processor'
+require 'mage_soap/async_router'
 
 module MageSoap
   class AsyncHttpBackend < WsdlMapper::Runtime::AsyncHttpBackend
-    def initialize(root_module, connection: Faraday.new, executor: nil)
+    def initialize(root_module, url, connection: Faraday.new, executor: nil)
       super(connection: connection, executor: executor)
 
       @root_module = root_module
@@ -12,6 +13,7 @@ module MageSoap
       @proxy_class = @service_class.const_get :CoreApiPortProxy
 
       stack.add 'response.processor', AsyncResponseProcessor.new
+      stack.after 'message.factory', 'router', AsyncRouter.new(url)
     end
 
     def api
