@@ -13,7 +13,7 @@ module MageSoap
       @proxy_class = @service_class.const_get :CoreApiPortProxy
 
       stack.add 'response.processor', AsyncResponseProcessor.new
-      stack.after 'message.factory', 'router', AsyncRouter.new(url)
+      stack.after 'request.factory', 'request.router', AsyncRouter.new(url)
     end
 
     def api
